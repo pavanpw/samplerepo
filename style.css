@@ -1,0 +1,9 @@
+.card_list .card{
+    display: inline-block;    
+    width: 25%;
+    background-color: #3a7a72;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin: 20px;
+}
