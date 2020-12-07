@@ -1,22 +1,33 @@
-$(document).ready(function(){
-    $(".myform").submit(function(e){
-        e.preventDefault();
-        var email = $("#email").val();
-        var pass = $("#pwd").val();
-        // writing Regex for email
-        var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-        // writing Regex for password
-        var pass_regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-        // checking email is valid or not
-        if(email_regex.test(email)){
-            // checking password is strong or not
-            if(pass_regex.test(pass)){
-                console.log(email+" "+pass);
-            }else{
-                console.log("error in password: password not storng");
-            }
-        }else{
-            console.log("error in email");
-        }
-    }); 
+$(document).ready(function () {
+  var api_url = "http://dummy.restapiexample.com/api/v1/employees";
+  var card_html ="";
+  $.ajax({
+    method: "GET",
+    url: api_url,
+    success: function (e) {
+      var responce = e.data;
+      responce.map(function (val) {
+        console.log(val.employee_name);
+        card_html +=
+          `<div class="card">
+    <div class="card_header">
+        <h1>` +
+          val.employee_name +
+          `</h1>
+    </div>
+    <div class="card_body">
+        <p>Salary: ` +
+          val.employee_salary +
+          `</p>
+        <p>Age: ` +
+          val.employee_age +
+          `</p>
+    </div>
+</div>`;
+      });
+      
+      $(".card_list").html(card_html);
+
+    },
+  });
 });
